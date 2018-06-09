@@ -19,11 +19,15 @@ class CommentsController {
     	// prevent default form submit behaviour - we are going t handle the submit
     	event.preventDefault();
 
-    	// make a jQuery object of the event so we can use jQuery helpers to get DOM element data
-    	var $event = $(event);
+    	// make a jQuery object of the target form so we can use jQuery helpers to get DOM element data
+    	var $form = $(event.target);
 
-    	// log the event to the console - just to show that something's working at this point
-    	console.log(event);
+    	var imageId = $form.data('id');
+    	var comment = $form.find('input[name="comment-description"]').val();
+
+    	// log the image ID and comment to the console - just to show that something's working at this point
+    	console.log(imageId);
+    	console.log(comment);
     });
   }
 }
