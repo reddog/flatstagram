@@ -11,8 +11,23 @@ class CommentsController {
     this.addCommentFormListener();
   }
 
+  addCommentToImage(imageId, comment) {
+  	// add a comment to a given image and re-render
+  	// returns true on success, false on failure
+
+	if(Array.isArray(Image.all) && Image.all.length >= imageId + 1 && Array.isArray(Image.all[imageId].comments)) {
+    	Image.all[imageId].comments.push(comment);
+    	return true;
+    }
+
+    // there was some sort of error finding array of all images, or the comments array for this image
+    return false;
+  }
+
   addCommentFormListener() {
     // find all comment forms and add a submit listener
+    var self = this;
+    
     $('form.add-comment').on('submit', function(event){
     	// event handler to handle comment form submit
 
@@ -25,10 +40,7 @@ class CommentsController {
     	var imageId = parseInt($form.data('id'));
     	var comment = $form.find('input[name="comment-description"]').val();
 
-    	if(Array.isArray(Image.all) && Image.all.length >= imageId + 1 && Array.isArray(Image.all[imageId].comments)) {
-	    	Image.all[imageId].comments.push(comment);
-    	}
-    	else {
+    	if(!self.addCommentToImage(imageId, comment)) {
     		console.log('Unable to add comment to image');
     		return;
     	}
