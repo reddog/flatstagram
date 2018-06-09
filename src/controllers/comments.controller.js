@@ -25,9 +25,16 @@ class CommentsController {
     	var imageId = parseInt($form.data('id'));
     	var comment = $form.find('input[name="comment-description"]').val();
 
-    	// log the image ID and comment to the console - just to show that something's working at this point
-    	console.log(imageId);
-    	console.log(comment);
+    	if(Array.isArray(Image.all) && Image.all.length >= imageId + 1 && Array.isArray(Image.all[imageId].comments)) {
+	    	Image.all[imageId].comments.push(comment);
+    	}
+    	else {
+    		console.log('Unable to add comment to image');
+    		return;
+    	}
+
+    	// log the image comments - just to show that something's working at this point
+    	console.log(Image.all[imageId].comments);
     });
   }
 }
