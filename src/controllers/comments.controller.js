@@ -22,7 +22,7 @@ class CommentsController {
     	// make a jQuery object of the target form so we can use jQuery helpers to get DOM element data
     	var $form = $(event.target);
 
-    	var imageId = $form.data('id');
+    	var imageId = parseInt($form.data('id'));
     	var comment = $form.find('input[name="comment-description"]').val();
 
     	// log the image ID and comment to the console - just to show that something's working at this point
