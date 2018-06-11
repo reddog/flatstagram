@@ -26,20 +26,19 @@ class Comment {
   		return false;
   	}
 
-		for(var image of Image.all) {
-			if(image.id == imageId) {
-				// found the matching image
+  	const index = Image.all.findIndex(image => image.id === imageId);
 
-				// add this comment
-				if(!Array.isArray(image.comments)) {
-					image.comments = [];
-				}
-				image.comments.push(this);
-				
-				// return the image
-				return image;
-			}
-		}
+  	if(index >= 0) {
+	  	// we've found the image
+
+	  	// add this comment
+	  	if(!Array.isArray(Image.all[index].comments)) {
+	  		Image.all[index].comments = [];
+	  	}
+			Image.all[index].comments.push(this);
+
+	  	return Image.all[index];
+  	}
 
 		// can't find the image for that id
 		return false;
