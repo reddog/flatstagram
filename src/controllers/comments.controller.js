@@ -14,6 +14,8 @@ class CommentsController {
   }
 
   addCommentFormListener() {
+  	const self = this;
+
     // find all comment forms and add a submit listener
     this.$addCommentForm.on('submit', function(event){
     	// event handler to handle comment form submit
@@ -28,6 +30,19 @@ class CommentsController {
     	const commentContent = $form.find('input[name="comment-description"]').val();
 
     	const comment = new Comment(commentContent, imageId);
+    	self.render(comment);
     });
+  }
+
+  render(commentObject) {
+  	// render a comment object
+  	if(!commentObject || !commentObject.image) {
+  		// for some reason, there is no comment object or image for this comment
+  		return false;
+  	}
+
+  	const imageId = commentObject.image.id;
+
+  	$(`#comments-${imageId}`).append(commentObject.commentEl());
   }
 }
