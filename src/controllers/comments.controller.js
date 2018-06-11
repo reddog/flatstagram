@@ -8,55 +8,55 @@ class CommentsController {
 
     // this isn't *strictly* requested in the assignment
     if(doTest) {
-	    // add comment form event listeners
-	    this.addCommentFormListener();
+      // add comment form event listeners
+      this.addCommentFormListener();
     }
   }
 
   addCommentFormListener() {
-  	const self = this;
+    const self = this;
 
     // find all comment forms and add a submit listener
     this.$addCommentForm.on('submit', function(event){
-    	// event handler to handle comment form submit
+      // event handler to handle comment form submit
 
-    	// prevent default form submit behaviour - we are going t handle the submit
-    	event.preventDefault();
+      // prevent default form submit behaviour - we are going t handle the submit
+      event.preventDefault();
 
-    	// make a jQuery object of the target form so we can use jQuery helpers to get DOM element data
-    	const $form = $(event.target);
+      // make a jQuery object of the target form so we can use jQuery helpers to get DOM element data
+      const $form = $(event.target);
 
-    	const imageId = parseInt($form.data('id'));
-    	const commentContent = $form.find('input[name="comment-description"]').val();
+      const imageId = parseInt($form.data('id'));
+      const commentContent = $form.find('input[name="comment-description"]').val();
 
-    	const comment = new Comment(commentContent, imageId);
+      const comment = new Comment(commentContent, imageId);
 
-  		// render the new comment
-    	if(self.render(comment)) {
-    		// new comment has been rendered
+      // render the new comment
+      if(self.render(comment)) {
+        // new comment has been rendered
 
-	    	// clear the text input box for the next comment
-		    // this isn't *strictly* requested in the assignment
-    		$form.find('input[name="comment-description"]').val('');
-    	}
-    	else {
-    		console.log('Unable to render new comment for image');
-    	}
+        // clear the text input box for the next comment
+        // this isn't *strictly* requested in the assignment
+        $form.find('input[name="comment-description"]').val('');
+      }
+      else {
+        console.log('Unable to render new comment for image');
+      }
     });
   }
 
   render(commentObject) {
-  	// render a comment object
-  	if(!commentObject || !commentObject.image) {
-  		// for some reason, there is no comment object or image for this comment
-  		return false;
-  	}
+    // render a comment object
+    if(!commentObject || !commentObject.image) {
+      // for some reason, there is no comment object or image for this comment
+      return false;
+    }
 
-  	const imageId = commentObject.image.id;
+    const imageId = commentObject.image.id;
 
-  	$(`#comments-${imageId}`).append(commentObject.commentEl());
+    $(`#comments-${imageId}`).append(commentObject.commentEl());
 
-  	// all went well
-  	return true;
+    // all went well
+    return true;
   }
 }

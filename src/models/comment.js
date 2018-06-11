@@ -3,51 +3,51 @@
 
 class Comment {
   constructor(comment, imageId) {
-  	// ensure class static parameter all is an array, make it if not
-  	if(!Array.isArray(this.constructor.all)) {
-  		this.constructor.all = [];
-  	}
+    // ensure class static parameter all is an array, make it if not
+    if(!Array.isArray(this.constructor.all)) {
+      this.constructor.all = [];
+    }
 
-  	// set instance variables
-	  this.id = this.constructor.all.length;
-	  this.image = this.findImage(imageId);
-	  this.commentContent = comment;
+    // set instance variables
+    this.id = this.constructor.all.length;
+    this.image = this.findImage(imageId);
+    this.commentContent = comment;
 
-	  // add this instance to list of all comments
-	  this.constructor.all.push(this);
+    // add this instance to list of all comments
+    this.constructor.all.push(this);
   }
 
   findImage(imageId) {
-  	// given an `int` for an image id, returns the image object with that id
-  	// before return - adds current comment to image's comments property
-  	// returns false on error or not found
+    // given an `int` for an image id, returns the image object with that id
+    // before return - adds current comment to image's comments property
+    // returns false on error or not found
 
-  	if(!Image || !Array.isArray(Image.all)) {
-  		return false;
-  	}
+    if(!Image || !Array.isArray(Image.all)) {
+      return false;
+    }
 
-  	const index = Image.all.findIndex(image => image.id === imageId);
+    const index = Image.all.findIndex(image => image.id === imageId);
 
-  	if(index >= 0) {
-	  	// we've found the image
+    if(index >= 0) {
+      // we've found the image
 
-	  	// add this comment
-	  	if(!Array.isArray(Image.all[index].comments)) {
-	  		Image.all[index].comments = [];
-	  	}
-			Image.all[index].comments.push(this);
+      // add this comment
+      if(!Array.isArray(Image.all[index].comments)) {
+        Image.all[index].comments = [];
+      }
+      Image.all[index].comments.push(this);
 
-	  	return Image.all[index];
-  	}
+      return Image.all[index];
+    }
 
-		// can't find the image for that id
-		return false;
+    // can't find the image for that id
+    return false;
   }
 
   commentEl() {
-  	// returns a string of HTML representing this comment
-  	const escapedComment = _.escape(this.commentContent);
-  	return `<li id="image-${this.image.id}-comment-${this.id}" data-id="${this.id}">${escapedComment}</li>`;
+    // returns a string of HTML representing this comment
+    const escapedComment = _.escape(this.commentContent);
+    return `<li id="image-${this.image.id}-comment-${this.id}" data-id="${this.id}">${escapedComment}</li>`;
   }
 }
 
