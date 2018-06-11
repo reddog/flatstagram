@@ -5,6 +5,12 @@ class CommentsController {
 
   init() {
     // kick off controller from here
+
+    // this isn't *strictly* requested in the assignment
+    if(doTest) {
+	    // add comment form event listeners
+	    this.addCommentFormListener();
+    }
   }
 
   addCommentFormListener() {
