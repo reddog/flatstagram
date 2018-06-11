@@ -30,7 +30,18 @@ class CommentsController {
     	const commentContent = $form.find('input[name="comment-description"]').val();
 
     	const comment = new Comment(commentContent, imageId);
-    	self.render(comment);
+
+  		// render the new comment
+    	if(self.render(comment)) {
+    		// new comment has been rendered
+
+	    	// clear the text input box for the next comment
+		    // this isn't *strictly* requested in the assignment
+    		$form.find('input[name="comment-description"]').val('');
+    	}
+    	else {
+    		console.log('Unable to render new comment for image');
+    	}
     });
   }
 
@@ -44,5 +55,8 @@ class CommentsController {
   	const imageId = commentObject.image.id;
 
   	$(`#comments-${imageId}`).append(commentObject.commentEl());
+
+  	// all went well
+  	return true;
   }
 }
