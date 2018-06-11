@@ -26,18 +26,20 @@ class Comment {
   		return false;
   	}
 
-		for(var image of Image.all) {
-			if(image.id == imageId) {
+  	let numImages = Image.all.length;
+
+  	for(let i = 0; i < numImages; i++) {
+			if(Image.all[i].id == imageId) {
 				// found the matching image
 
 				// add this comment
-				if(!Array.isArray(image.comments)) {
-					image.comments = [];
+				if(!Array.isArray(Image.all[i].comments)) {
+					Image.all[i].comments = [];
 				}
-				image.comments.push(this);
-				
+				Image.all[i].comments.push(this);
+
 				// return the image
-				return image;
+				return Image.all[i];
 			}
 		}
 
