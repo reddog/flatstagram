@@ -47,7 +47,7 @@ class Comment {
   commentEl() {
   	// returns a string of HTML representing this comment
   	const escapedComment = _.escape(this.commentContent);
-  	return `<li data-id="${this.id}">${escapedComment}</li>`;
+  	return `<li id="image-${this.image.id}-comment-${this.id}" data-id="${this.id}">${escapedComment}</li>`;
   }
 }
 
