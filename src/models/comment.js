@@ -43,6 +43,12 @@ class Comment {
 		// can't find the image for that id
 		return false;
   }
+
+  commentEl() {
+  	// returns a string of HTML representing this comment
+  	const escapedComment = _.escape(this.commentContent);
+  	return `<li data-id="${this.id}">${escapedComment}</li>`;
+  }
 }
 
 // define array to hold all comments, a static propety of class Comment
