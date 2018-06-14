@@ -44,6 +44,12 @@ class Comment {
     return false;
   }
 
+  static commentExists(commentContent, imageId) {
+    const index = Comment.all.findIndex(comment => comment.image.id === imageId && comment.commentContent === commentContent);
+
+    return index >= 0;
+  }
+
   commentEl() {
     // returns a string of HTML representing this comment
     const escapedComment = _.escape(this.commentContent);

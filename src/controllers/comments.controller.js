@@ -29,6 +29,12 @@ class CommentsController {
       const imageId = parseInt($form.data('id'));
       const commentContent = $form.find('input[name="comment-description"]').val();
 
+      if(Comment.commentExists(commentContent, imageId)) {
+        // this comment already exists - just clear the form
+        $form.find('input[name="comment-description"]').val('');
+        return;
+      }
+
       const comment = new Comment(commentContent, imageId);
 
       // render the new comment
